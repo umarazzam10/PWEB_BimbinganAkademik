@@ -10,6 +10,7 @@ var profileRouter = require('./routes/profile')
 const { profile } = require('console');
 var ubahPassRouter = require('./routes/ubahPass');
 
+
 var app = express();
 
 // view engine setup
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/profile', profileRouter)
 app.use('/ubahPass', ubahPassRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
