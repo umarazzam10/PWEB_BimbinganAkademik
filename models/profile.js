@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../config/dbConfig')
 
-const nim = sequelize.define('profile', {
+var profile = sequelize.define('profile', {
     NIM:{
         type: DataTypes.STRING(20),
         allowNull: false,
@@ -23,9 +23,20 @@ const nim = sequelize.define('profile', {
     NoHP: {
         type: DataTypes.STRING(20),
         allowNull: false
+    },
+    created_at : {
+        type        : DataTypes.DATEONLY,
+        allowNull   : false
+    },
+    updated_at : {
+        type        : DataTypes.DATEONLY,
+        allowNull   : false
     }
 }, {
-    tableName: 'profile'
+    freezeTableName : true,
+    timestamps  : true,
+    createdAt:'created_at',
+    updatedAt: 'updated_at'
 })
 
 module.exports = profile
