@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-import{tampilProfile} from "../controllers/profile"
+const controller = require('../controllers/profile')
 
-router.get('/profile', tampilProfile)
+router.get('/profile', controller.tampilProfile)
 
 module.exports = router;

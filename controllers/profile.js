@@ -1,6 +1,10 @@
 const modelProfile = require('../models/profile')
 const {Op, where, Model} = require('sequelize')
 
+const halProfile = async (req,res) => {
+    res.render ('profile')
+}
+
 const tampilProfile = async(req,res) =>{
     try{
         const findAllProfile = await modelProfile.findAll();       //ambil semua data
