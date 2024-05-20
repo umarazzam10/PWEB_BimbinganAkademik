@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
+import{tampilProfile} from "../controllers/profile"
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('profile', { title: 'Express' });
-});
+router.get('/profile', tampilProfile)
 
 module.exports = router;
