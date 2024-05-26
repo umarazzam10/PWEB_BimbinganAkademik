@@ -7,9 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var profileRouter = require('./routes/profile')
-const { profile } = require('console');
-var ubahPassRouter = require('./routes/ubahPass');
-
+var loginRouter = require('./routes/login')
+var riwayatRouter = require('./routes/riwayat')
+var jadwalRouter = require('./routes/jadwal')
 
 var app = express();
 
@@ -23,10 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/profile', profileRouter)
-app.use('/', indexRouter)
-app.use('/ubahPass', ubahPassRouter);
-
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/profile', profileRouter);
+app.use('/login', loginRouter);
+app.use('/riwayat', riwayatRouter)
+app.use('/jadwal', jadwalRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
