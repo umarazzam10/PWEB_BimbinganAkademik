@@ -1,42 +1,33 @@
-const {DataTypes} = require('sequelize')
-const sequelize = require('../config/dbConfig')
-
-var profile = sequelize.define('profile', {
-    NIM:{
-        type: DataTypes.STRING(20),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    Nama:{
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    Alamat:{
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    Email: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    NoHP: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    },
-    created_at : {
-        type        : DataTypes.DATEONLY,
-        allowNull   : false
-    },
-    updated_at : {
-        type        : DataTypes.DATEONLY,
-        allowNull   : false
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-}, {
-    freezeTableName : true,
-    timestamps  : true,
-    createdAt:'created_at',
-    updatedAt: 'updated_at'
-})
-
-module.exports = profile
+  }
+  User.init({
+    email: { 
+      type: DataTypes.STRING,
+      unique: true // Making email attribute unique
+    },
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    role: DataTypes.STRING,
+    nama: DataTypes.STRING,
+    nim_nip: DataTypes.STRING,
+    alamat: DataTypes.STRING,
+    noHp: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};

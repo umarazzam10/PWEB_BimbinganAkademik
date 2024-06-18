@@ -12,13 +12,13 @@
     <div class="container">
       <div class="ubahPass-box">
         <h2>change password</h2>
-        <form action="/ganti_pass" method="POST">
+        <form action="/auth/ubahPassword" method="POST">
           <div class="user-box">
-            <input type="text" name="old_password" id="old_password" required="" />
+            <input type="text" name="oldPassword" id="oldPassword" required="" />
             <label>Password Lama</label>
           </div>
           <div class="user-box">
-            <input type="password" name="new_password" id="new_password" required="" />
+            <input type="password" name="newPassword" id="newPassword" required="" />
             <label>Password Baru</label>
             <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
           </div>
