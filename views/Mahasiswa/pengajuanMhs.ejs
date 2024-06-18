@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+</head>
+<body>
+    <%- include("Mahasiswa/home.ejs") %>
+
+    <h1 class="text-xl font-extrabold m-5"><%= title %></h1>
+
+    <div class="w-full px-4">
+      <h1 class="text-3xl font-bold mt-8 mb-4">Form Pengajuan Bimbingan</h1>
+      <form action="/submit" method="POST" class="w-full max-w-lg bg-white rounded-lg shadow-md p-6">
+        <div class="mb-4">
+          <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+          <input type="text" id="nama" name="nama" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="nim" class="block text-sm font-medium text-gray-700">NIM</label>
+          <input type="text" id="nim" name="nim" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal Bimbingan</label>
+          <input type="date" id="tanggal" name="tanggal" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="waktu" class="block text-sm font-medium text-gray-700">Waktu</label>
+          <input type="time" id="waktu" name="waktu" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="topik" class="block text-sm font-medium text-gray-700">Topik</label>
+          <textarea id="topik" name="topik" rows="3" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Tambah
+          </button>
+        </div>
+      </form>
+    </div>
+    
+
+      
+</body>
+</html>
