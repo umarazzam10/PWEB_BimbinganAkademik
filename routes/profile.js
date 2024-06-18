@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('profile', { title: 'Profile' });
 });
 
+router.get('/edit', function(req, res, next) {
+  res.render('editProfile', { title: 'Edit Profile' });
+});
+
 router.get('/profile', controller.tampilProfile)
 
 module.exports = router;
