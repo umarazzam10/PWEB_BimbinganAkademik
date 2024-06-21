@@ -22,6 +22,7 @@ const login = async (req, res, next) => {
         }
 
         // Set session
+        res.cookie('userId', user.id, { httpOnly: true });
         req.session.userId = user.id;
         req.session.userRole = user.role;
         console.log("Login successful for user:", email);
@@ -37,16 +38,16 @@ const login = async (req, res, next) => {
 };
 
 const requireAuth = (req, res, next) => {
-    if (!req.session.userId) {
+    if (!req.cookies.userId) {
         return res.redirect('/auth'); // Redirect to login page
     }
     next();
 };
 const redirectIfAuthenticated = (req, res, next) => {
     if (req.session.userRole==='mahasiswa') {
-        return res.redirect('/'); // Redirect to home page if authenticated
+       return res.redirect('/'); // Redirect to home page if authenticated
     }
-    next();
+   next();
 };
 const logout = (req, res, next) => {
     // Hapus data sesi yang relevan
