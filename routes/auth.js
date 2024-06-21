@@ -4,7 +4,7 @@ const controller = require("../controllers/ubahPass");
 const { login, requireAuth,redirectIfAuthenticated,logout } = require('../middleware/auth');
 
 /* GET home page. */
-router.get('/',redirectIfAuthenticated, function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('login', { title: 'login' });
 });
 router.post('/login', login);
@@ -20,7 +20,11 @@ router.post("/ubahPassword", requireAuth, async (req, res) => {
 router.get('/error', function(req, res, next) {
     res.render('error', { title: 'Bimbingan Akademik' });
 });
-
+router.get('/logout', function(req, res, next) {
+    //req.session.userId = null
+    res.clearCookie('userId');
+    res.redirect("/auth");
+});
 
 
 module.exports = router;

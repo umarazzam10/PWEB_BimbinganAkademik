@@ -10,14 +10,13 @@
 </head>
 
 <body>
-  <%- include("Mahasiswa/home.ejs") %>
+<%- include("Dosen/layout.ejs") %>
 
     <div class="flex flex-col w-full">
       <h1 class="text-xl font-extrabold m-5">
         <%= title %>
       </h1>
-      <button class="button-tambah w-auto flex self-end" onclick="openPengajuanTambah()">Tambah</button>
-
+    
       <div class="ps-5 w-full">
         <table>
           <thead>
@@ -74,7 +73,7 @@
 
                 </td>
                 <td>
-                  <button class="button-edit" onclick="openPengajuanEdit('<%= pengajuan.id %>')">Edit</button>
+                  <button class="button-edit" onclick="openPengajuanEdit('<%= pengajuan.id %>')">Edit Status</button>
                 </td>
               </tr>
               <% }); %>
@@ -85,98 +84,30 @@
     </div>
 
 
-    <div id="tambahPengajuan" class="modal" style="display: none;">
-      <div class="modal-content">
-        <span class="close" style="cursor: pointer;" onclick="closePengajuanTambah()">&times;</span>
-        <h3 class="center-text">Tambah Pengajuan</h3>
-        <form id="tambahPengajuanForm" action="/pengajuan" method="post" enctype="multipart/form-data">
-          <div class="form-col">
-            <div class="form-group w-full">
-              <label for="nama">Topik:</label>
-              <input type="text" id="nama" name="topic" required>
-            </div>
-            <div class="form-group form-group-half">
-              <label for="namaDosen">Dosen:</label>
-              <select id="namaDosen" name="nama_dosen" required>
-                <option value="" disabled selected>...</option>
-                <% dosens.forEach((aset, index)=> { %>
-                  <option value="<%= aset.nama %>">
-                    <%= aset.nama %>
-                  </option>
-                  <% }); %>
-              </select>
-            </div>
 
-            <div class="form-group">
-              <label for="nama">Jadwal:</label>
-              <input type="date" id="nama" name="jadwal" required>
-            </div>
-
-            <div class="form-group">
-              <label for="nama">Waktu:</label>
-              <input type="time" id="nama" name="waktu" required>
-            </div>
-
-            <div class="form-group">
-              <label for="nama">File:</label>
-              <input type="file" id="nama" name="file">
-            </div>
-
-
+  <div id="editPengajuan" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="closePengajuanEdit()">&times;</span>
+      <h3 class="center-text">Edit Status</h3>
+      <form id="editPengajuanForm" action="/pengajuan/update" method="post">
+        <div class="form-col">
+          <div class="form-group form-group-half" style="display: flex; flex-direction: column;">
+            <input type="text" id="id" name="id" style="display: none;" />
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+              <option value="" disabled selected>...</option>
+              <option value="1">disetujui</option>
+              <option value="2">ditolak</option>
+            </select>
           </div>
-
-
-          <button type="submit">Tambah</button>
-        </form>
-      </div>
+        </div>
+  
+  
+  
+        <button type="submit">Simpan</button>
+      </form>
     </div>
-
-    <div id="editPengajuan" class="modal" style="display: none;">
-      <div class="modal-content">
-        <span class="close" style="cursor: pointer;" onclick="closePengajuanEdit()">&times;</span>
-        <h3 class="center-text">Edit Pengajuan</h3>
-        <form id="tambahPengajuanForm" action="/pengajuan/edit" method="post" enctype="multipart/form-data">
-          <input type="text" id="id" name="id" style="display: none;" />
-          <div class="form-col">
-            <div class="form-group w-full">
-              <label for="nama">Topik:</label>
-              <input type="text" id="topic" name="topic" required>
-            </div>
-            <div class="form-group form-group-half">
-              <label for="nama_dosen">Dosen:</label>
-              <select id="nama_dosen" name="nama_dosen" required>
-                <option value="" disabled selected>...</option>
-                <% dosens.forEach((aset, index)=> { %>
-                  <option value="<%= aset.nama %>">
-                    <%= aset.nama %>
-                  </option>
-                  <% }); %>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="nama">Jadwal:</label>
-              <input type="date" id="jadwal" name="jadwal" required>
-            </div>
-
-            <div class="form-group">
-              <label for="nama">Waktu:</label>
-              <input type="time" id="waktu" name="waktu" required>
-            </div>
-
-            <div class="form-group">
-              <label for="nama">File:</label>
-              <input type="file" id="file" name="file">
-            </div>
-
-
-          </div>
-
-
-          <button type="submit">Simpan</button>
-        </form>
-      </div>
-    </div>
+  </div>
 
 
     <script>
@@ -201,23 +132,20 @@
 
           console.log('User data:', userData);
 
-          document.getElementById("nama_dosen").value = userData.nama_dosen?.replace('\r\n', '');
-          document.getElementById("jadwal").value = userData.jadwal?.split('T')[0];
-          document.getElementById("waktu").value = userData.waktu;
+        
+          document.getElementById("status").value = userData.waktu;
           document.getElementById("id").value = userData.id;
-          document.getElementById("topic").value = userData.topic;
-          document.getElementById("file").value = userData.file;
 
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
       }
 
-      function closePengajuanEdit() {
+      function closeModalEdit() {
         document.getElementById("editPengajuan").style.display = "none";
       }
 
-      function closePengajuanEdit() {
+      function closeModalEdit() {
         document.getElementById("editPengajuan").style.display = "none";
       }
 
