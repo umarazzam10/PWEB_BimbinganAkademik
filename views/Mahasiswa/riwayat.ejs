@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+</head>
+<body>
+    <%- include("Mahasiswa/home.ejs") %>
+
+    <h1 class="text-xl font-extrabold m-5"><%= title %></h1>
+
+    <div class="flex-col">
+
+        <% pengajuans.forEach((pengajuan, index)=> { %>
+            <% if (pengajuan.status == 1) { %>
+                <div class="card bg-neutral shadow-xl text-neutral-content mx-auto mt-5" style="height: 80px; width: 120vh;">
+                    <div style="height: 40px; width: 120vh;">
+                        <h1 class="font-bold m-2"><%= pengajuan.topic %></h1>
+                    </div>
+                    <div class="bg-base-300 justify-between flex flex-row rounded-md" style="height: 40px; width: 120vh;">
+                        <h1 class="font-bold m-2 text-base-content"><%= pengajuan.jadwal %></h1>
+                        <a href="/riwayat/details"><h2 class="font-bold m-2 text-base-content">See Detail</h2></a>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+
+    </div>
+
+    
+
+    
+
+</body>
+</html>
