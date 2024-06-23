@@ -3,7 +3,6 @@ const { getAllPengajuan, uploadd, postPengajuan, getEditPengajuan, putPengajuan,
 const { requireAuth } = require('../middleware/auth');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', getAllPengajuan);
 router.get('/dosen', getAllPengajuanDosen);
 router.post('/', uploadd, postPengajuan);

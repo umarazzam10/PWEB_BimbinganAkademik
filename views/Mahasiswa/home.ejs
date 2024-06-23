@@ -93,12 +93,11 @@
       </ul>
     </div>
 
-    <!-- Menyertakan jQuery -->
+ 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
-    <!-- Kode untuk menampilkan notifikasi -->
     <script>
       setInterval(() => {
         fetch('/notification/json')
@@ -113,7 +112,7 @@
               }, 3000)
             }
 
-            updateNotifications(data.data); // Update notifications on the page
+            updateNotifications(data.data); 
           });
       }, 5000);
 

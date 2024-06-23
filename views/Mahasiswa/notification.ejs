@@ -48,10 +48,9 @@
       </div>
     </div>
     <script>
-      // Function to update notifications
       function updateNotifications(notifications) {
         const container = document.getElementById('notification-container');
-        container.innerHTML = ''; // Clear existing notifications
+        container.innerHTML = ''; 
 
         notifications.forEach(notification => {
           const notificationHTML = `
@@ -71,17 +70,16 @@
             <p class="text-gray-800">${notification.description}</p>
           </div>`;
 
-          container.innerHTML += notificationHTML; // Append new notification
+          container.innerHTML += notificationHTML; 
         });
       }
 
-      // Fetch notifications every 5 seconds
       setInterval(() => {
         fetch('/notification/json')
           .then(response => response.json())
           .then(data => {
             console.log('Notifications received:', data);
-            updateNotifications(data.data); // Update notifications on the page
+            updateNotifications(data.data); 
           });
       }, 5000);
     </script>
