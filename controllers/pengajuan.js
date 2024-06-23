@@ -1,10 +1,10 @@
 
 const multer = require('multer')
-const { Pengajuan, User } = require('../models')
+const { Pengajuan, User, Notification } = require('../models')
 const path = require('path')
 const { format } = require('date-fns');
 const { id } = require('date-fns/locale');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
 const formatTanggal = (date) => {
     return format(new Date(date), 'dd MMMM yyyy', { locale: id });
 };
@@ -145,9 +145,9 @@ const putPengajuan = async (req, res) => {
 
 const putStatusPengajuan = async (req, res) => {
     try {
-        const { status, id } = req.body;
-
-
+        const { status, id, nama, studentId } = req.body;
+        const io = req.app.locals.io; //
+        let data=""
         await Pengajuan.update({
             status: status
         }, {
@@ -155,6 +155,22 @@ const putStatusPengajuan = async (req, res) => {
                 id: id
             }
         })
+
+        if (status==1){
+         data={
+            topic:'pengajuan bimbingan',
+            description:'Selamat pengajuan kamu di setujui',
+            nama_user:nama
+         }
+        }else{
+           data={
+            topic:'pengajuan bimbingan',
+            description:'Pengajuan kamu di tolak',
+            nama_user:nama
+         }
+        }
+         await Notification.create(data)
+        io.emit('statusUpdate', { studentId, status }); // Mengirimkan notifikasi ke semua klien
 
         res.redirect('/pengajuan/dosen'); // Pengalihan ke halaman dosen setelah berhasil
     } catch (error) {
