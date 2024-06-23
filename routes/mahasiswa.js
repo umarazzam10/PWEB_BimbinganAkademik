@@ -4,8 +4,6 @@ const { login, requireAuth } = require('../middleware/auth');
 const controller = require('../controllers/ubahPass');
 const controller1 = require('../controllers/notification');
 
-/* GET home page. */
-
 
 router.get('/', requireAuth, function(req, res, next) {
   res.render('home', { title: 'Bimbingan Akademik' });

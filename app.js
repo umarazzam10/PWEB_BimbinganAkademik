@@ -21,7 +21,7 @@ var session = require('express-session');
 
 var app = express();
 
-// Session middleware
+
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -29,7 +29,7 @@ app.use(session({
   cookie: { maxAge: 60000 }
 }));
 
-// view engine setup
+
 app.set('views', [
   path.join(__dirname, 'views/Mahasiswa'),
   path.join(__dirname, 'views/Dosen'),
@@ -52,7 +52,7 @@ app.use('/riwayat', riwayatRouter)
 app.use('/jadwal', jadwalRouter)
 app.use('/pengajuan', pengajuanRouter)
 
-// catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -68,13 +68,11 @@ io.on('connection', (socket) => {
 });
 
 app.locals.io = io;
-// error handler
+
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

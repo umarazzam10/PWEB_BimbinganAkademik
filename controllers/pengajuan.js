@@ -43,7 +43,7 @@ const postPengajuan = async (req, res) => {
             waktu: waktu
         };
 
-        // Jika file diunggah, tambahkan properti file ke dalam objek pembaruan
+        
         if (file_uploaded) {
             postData.file = file_uploaded.originalname;
         }
@@ -103,7 +103,7 @@ const getEditPengajuan = async (req, res, next) => {
             return res.status(404).json({ error: 'pengajuan not found' });
         }
         pengajuan.jadwal = formatTanggal1(pengajuan.jadwal)
-        res.json(pengajuan); // Mengirim data pengajuan dalam format JSON
+        res.json(pengajuan); 
     } catch (error) {
         console.error('Error fetching pengajuan data:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -116,7 +116,7 @@ const putPengajuan = async (req, res) => {
         const { nama_dosen, jadwal, waktu, topic, id } = req.body;
         const file_uploaded = req.file;
 
-        // Buat objek pembaruan
+        
         const updateData = {
             topic: topic,
             nama_dosen: nama_dosen,
@@ -125,7 +125,7 @@ const putPengajuan = async (req, res) => {
             waktu: waktu
         };
 
-        // Jika file diunggah, tambahkan properti file ke dalam objek pembaruan
+        
         if (file_uploaded) {
             updateData.file = file_uploaded.originalname;
         }
@@ -170,9 +170,9 @@ const putStatusPengajuan = async (req, res) => {
          }
         }
          await Notification.create(data)
-        io.emit('statusUpdate', { studentId, status }); // Mengirimkan notifikasi ke semua klien
+        io.emit('statusUpdate', { studentId, status }); 
 
-        res.redirect('/pengajuan/dosen'); // Pengalihan ke halaman dosen setelah berhasil
+        res.redirect('/pengajuan/dosen'); 
     } catch (error) {
         console.error('Error adding perbaikan:', error);
         res.redirect('/dosen/pengajuan?error=Failed to update pengajuan');

@@ -3,7 +3,7 @@ var router = express.Router();
 const controller = require("../controllers/ubahPass");
 const { login, requireAuth,redirectIfAuthenticated,logout } = require('../middleware/auth');
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
     res.render('login', { title: 'login' });
 });
@@ -21,7 +21,6 @@ router.get('/error', function(req, res, next) {
     res.render('error', { title: 'Bimbingan Akademik' });
 });
 router.get('/logout', function(req, res, next) {
-    //req.session.userId = null
     res.clearCookie('userId');
     res.redirect("/auth");
 });

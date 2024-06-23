@@ -16,7 +16,7 @@ const getAllNotification = async (req, res, next) => {
     const nama = req.cookies.userName || null
     let notifications = await Notification.findAll({
       where: {
-        // Menggunakan Sequelize.fn('TRIM', Sequelize.col('nama_user')) untuk trim nama_user
+
         [Op.and]: [
             Sequelize.where(Sequelize.fn('TRIM', Sequelize.col('nama_user')), {
                 [Op.eq]: nama?.trim()
@@ -39,7 +39,7 @@ const getAllNotificationJson = async (req, res, next) => {
     const nama = req.cookies.userName || null
     let notifications = await Notification.findAll({
       where: {
-        // Menggunakan Sequelize.fn('TRIM', Sequelize.col('nama_user')) untuk trim nama_user
+        
         [Op.and]: [
             Sequelize.where(Sequelize.fn('TRIM', Sequelize.col('nama_user')), {
                 [Op.eq]: nama?.trim()
