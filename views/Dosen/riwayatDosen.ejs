@@ -6,11 +6,12 @@
     <title><%=title%></title>
 </head>
 <body>
+
     <%- include("Dosen/layout.ejs") %>
 
     <h1 class="text-xl font-extrabold m-5"><%= title %></h1>
 
-    <div class="flex-col">
+    <div class="flex-col overflow-y-scroll" style="height: 650px;">
 
         <% pengajuans.forEach((pengajuan, index)=> { %>
             <!-- <% if (pengajuan.status == 1) { %> -->
@@ -27,10 +28,6 @@
         <% }) %>
 
     </div>
-
-    
-
-    
 
 </body>
 </html>

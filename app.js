@@ -16,6 +16,8 @@ var profileRouter = require('./routes/profile')
 var riwayatRouter = require('./routes/riwayat')
 var jadwalRouter = require('./routes/jadwal')
 var pengajuanRouter = require('./routes/pengajuan')
+var generateRouter = require('./routes/generatePDF')
+
 
 var session = require('express-session');
 
@@ -51,6 +53,7 @@ app.use('/profile', profileRouter);
 app.use('/riwayat', riwayatRouter)
 app.use('/jadwal', jadwalRouter)
 app.use('/pengajuan', pengajuanRouter)
+// app.use('/generateFile', generateRouter)
 
 
 app.use(function(req, res, next) {
