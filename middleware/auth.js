@@ -23,6 +23,7 @@ const login = async (req, res, next) => {
 
         // Set session
         res.cookie('userId', user.id, { httpOnly: true });
+        res.cookie('userName', user.nama, { httpOnly: true });
         req.session.userId = user.id;
         req.session.userRole = user.role;
         console.log("Login successful for user:", email);

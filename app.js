@@ -1,4 +1,6 @@
 var createError = require('http-errors');
+const http = require('http');
+const socketIo = require('socket.io');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -14,6 +16,7 @@ var profileRouter = require('./routes/profile')
 var riwayatRouter = require('./routes/riwayat')
 var jadwalRouter = require('./routes/jadwal')
 var pengajuanRouter = require('./routes/pengajuan')
+
 var session = require('express-session');
 
 var app = express();
@@ -54,6 +57,17 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+    console.log('New client connected');
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
+app.locals.io = io;
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -64,5 +78,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
