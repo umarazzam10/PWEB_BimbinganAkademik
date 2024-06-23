@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%=title%>
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+
+<body>
+  <%- include("home.ejs") %>
+
+    <div class="flex flex-col w-full">
+      <h1 class="text-xl font-extrabold m-5">
+        <%= title %>
+      </h1>
+
+      <div class="ps-5 w-full" id="notification-container">
+
+        <% notifications.forEach(notification=> { %>
+          <div class="bg-gray-100 rounded-lg mb-3 shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <p class="text-xl font-semibold flex flex-row">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M10 18a2 2 0 01-2-2h4a2 2 0 01-2 2zm6.22-3.56C15.7 13.74 14.11 13 12 13H8c-2.11 0-3.7.74-4.22 1.44-.22.18-.41.37-.58.56-.46.56-.7 1.29-.7 2 0 .36.04.71.11 1.04.41 1.82 2.31 3 4.39 3s3.98-1.18 4.39-3c.07-.33.11-.68.11-1.04 0-.71-.24-1.44-.7-2zM10 2a3 3 0 00-3 3c0 .31.05.61.13.89.28.82.94 1.58 1.74 2.11.74.5 1.66.78 2.63.78s1.89-.28 2.63-.78c.8-.53 1.46-1.29 1.74-2.11.08-.28.13-.58.13-.89a3 3 0 00-3-3zM8 14h4c2.21 0 3.57-1.45 3.88-3.44.02-.09.04-.18.06-.27.02-.11.03-.23.03-.35 0-.18-.02-.36-.06-.53-.31-2.05-2.2-3.5-4.39-3.5s-4.08 1.45-4.39 3.5c-.04.17-.06.35-.06.53 0 .12.01.24.03.35a5.53 5.53 0 00.06.27C4.43 12.55 5.79 14 8 14z"
+                      clip-rule="evenodd" />
+                  </svg>
+                  <%= notification.topic %>
+                </p>
+                <p class="text-gray-600">
+                  <%= notification.createdAt %>
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-800">
+              <%= notification.description %>.
+            </p>
+          </div>
+          <% }); %>
+
+            <div id="toastContainer"></div>
+
+      </div>
+    </div>
+    <script>
+      function updateNotifications(notifications) {
+        const container = document.getElementById('notification-container');
+        container.innerHTML = ''; 
+
+        notifications.forEach(notification => {
+          const notificationHTML = `
+          <div class="bg-gray-100 rounded-lg mb-3 shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <p class="text-xl font-semibold flex flex-row">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M10 18a2 2 0 01-2-2h4a2 2 0 01-2 2zm6.22-3.56C15.7 13.74 14.11 13 12 13H8c-2.11 0-3.7.74-4.22 1.44-.22.18-.41.37-.58.56-.46.56-.7 1.29-.7 2 0 .36.04.71.11 1.04.41 1.82 2.31 3 4.39 3s3.98-1.18 4.39-3c.07-.33.11-.68.11-1.04 0-.71-.24-1.44-.7-2zM10 2a3 3 0 00-3 3c0 .31.05.61.13.89.28.82.94 1.58 1.74 2.11.74.5 1.66.78 2.63.78s1.89-.28 2.63-.78c.8-.53 1.46-1.29 1.74-2.11.08-.28.13-.58.13-.89a3 3 0 00-3-3zM8 14h4c2.21 0 3.57-1.45 3.88-3.44.02-.09.04-.18.06-.27.02-.11.03-.23.03-.35 0-.18-.02-.36-.06-.53-.31-2.05-2.2-3.5-4.39-3.5s-4.08 1.45-4.39 3.5c-.04.17-.06.35-.06.53 0 .12.01.24.03.35a5.53 5.53 0 00.06.27C4.43 12.55 5.79 14 8 14z"
+                      clip-rule="evenodd" />
+                  </svg> ${notification.topic}
+                </p>
+                <p class="text-gray-600">${notification.createdAt}</p>
+              </div>
+            </div>
+            <p class="text-gray-800">${notification.description}</p>
+          </div>`;
+
+          container.innerHTML += notificationHTML; 
+        });
+      }
+
+      setInterval(() => {
+        fetch('/notification/json')
+          .then(response => response.json())
+          .then(data => {
+            console.log('Notifications received:', data);
+            updateNotifications(data.data); 
+          });
+      }, 5000);
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="/script.js"></script>
+</body>
+
+</html>
