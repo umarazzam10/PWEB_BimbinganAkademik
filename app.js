@@ -14,6 +14,7 @@ var profileRouter = require('./routes/profile')
 var riwayatRouter = require('./routes/riwayat')
 var jadwalRouter = require('./routes/jadwal')
 var pengajuanRouter = require('./routes/pengajuan')
+var generateRouter = require('./routes/generatePDF')
 var session = require('express-session');
 
 var app = express();
@@ -48,6 +49,7 @@ app.use('/profile', profileRouter);
 app.use('/riwayat', riwayatRouter)
 app.use('/jadwal', jadwalRouter)
 app.use('/pengajuan', pengajuanRouter)
+// app.use('/generateFile', generateRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

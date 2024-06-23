@@ -11,10 +11,12 @@
 // });
 
 var express = require('express');
-const { getAllRiwayat, getAllRiwayatDosen } = require('../controllers/riwayat');
+const { getAllRiwayat, getAllRiwayatDosen, AddDetails } = require('../controllers/riwayat');
 var router = express.Router();
 
 router.get('/', getAllRiwayat );
 router.get('/dosen', getAllRiwayatDosen);
+
+router.post('/addDetail/:id', AddDetails)
 
 module.exports = router;

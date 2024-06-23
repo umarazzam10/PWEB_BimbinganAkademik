@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            detail: {
+                type: DataTypes.DATE,
+                allowNull: true,
+            },
             file: {
                 type: DataTypes.TEXT,
                 allowNull: true,
